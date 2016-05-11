@@ -1,2 +1,3 @@
-# code
-Game
+# Webtycoon
+
+Incremental game in development.

@@ -1,0 +1,187 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+  <meta name="description" content="">
+  <meta name="author" content="">
+  <link rel="icon" href="../../favicon.ico">
+
+  <title>WebTycoon</title>
+
+  <!-- Bootstrap core CSS -->
+  <link href="css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- CSS for this page -->
+  <link href="css/styles_lv1.css" rel="stylesheet">
+
+  <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+  <link href="css/ie10-viewport-bug-workaround.css" rel="stylesheet">
+</head>
+
+
+
+<body>
+  <!-- Modal -->
+  <div id="blogModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Writing a new blog-entry to increase the popularity of the page!</h4>
+        </div>
+        <div id="modalBody" class="modal-body">
+          <p>Smash the keyboards to fill the progressbar, be creative or you will be punished!</p>
+          <p>Mobile users, drag your finger over the window! (Yes the site is responsive and works on smartphones)</p>
+          <div class="progress">
+            <div id="blogProgress" class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="0"
+            aria-valuemin="0" aria-valuemax="100" style="width:0%">
+          </div>
+        </div>
+        
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default btn-primary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- Modal -->
+<div id="sponsorModal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Pick a card!</h4>
+      </div>
+      <div class="modal-body">
+        <img id="sponsorCard1" class="card" src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e7/Red_card.svg/2000px-Red_card.svg.png" alt="card" height="100" width="75" onclick="update.chooseCard(1)()"/>
+        <img id="sponsorCard2" class="card" src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e7/Red_card.svg/2000px-Red_card.svg.png" alt="card" height="100" width="75" onclick="update.chooseCard(2)()"/>
+        <img id="sponsorCard3" class="card" src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e7/Red_card.svg/2000px-Red_card.svg.png" alt="card" height="100" width="75" onclick="update.chooseCard(3)()"/>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default btn-primary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+<div class="container">
+ <div class="row">
+  <div class="heading col-md-12">
+    <img src="images/icon.png" style="width:300px; height:150px;" alt="logo" class="img-responsive center-block"/>
+  </div>
+</div>
+<div class="stat-bar text-center row">
+  <div class="col-md-12" style="background-color: rgba(255,255,255,0.5)">
+    Money: <span id="money"></span> | Views: <span id="pageViews"></span> | Add Views: <span id="addViews"></span> | Unique Visitors: <span id="uniqueVisitors"></span> | Server load: <span id="serverload"></span>% | Popularity: <span id="popularity"></span> | Energy: <span id="energy"></span>%
+  </div>
+</div>
+<div class="stat-bar text-center row space-bottom" style="border-top: 0;">
+  <div id="newsbar" class="col-md-12">
+    <a class="mouse-pointer" style="color: black;" onclick="update.resetGame()"><span class="glyphicon glyphicon-trash"></span></a>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-10 text-center" id="fakeWebpage">
+    <div style="padding-bottom: 15px;">
+      <span class="glyphicon glyphicon-chevron-left"></span><span class="glyphicon glyphicon-chevron-right"></span><a class="mouse-pointer" onclick="update.calculateManualView()"><span class="glyphicon glyphicon-repeat"></span></a> | <input id="websiteURL" type="text" disabled="true" style="width: 80%" value="www.yoursite.com"/>
+    </div>
+    <h3 id="websiteName" style="display: inline;">Yoursite Blog</h3><a> <span class="mouse-pointer glyphicon glyphicon glyphicon-edit" onclick="update.changeWebsiteName()"></span></a>
+
+    <div id="addSpot1">
+     <!-- webTycoon
+      <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+      
+      <ins class="adsbygoogle"
+      style="display:block"
+      data-ad-client="ca-pub-2085876101170741"
+      data-ad-slot="5761965915"
+      data-ad-format="auto"></ins>
+      <script>
+      (adsbygoogle = window.adsbygoogle || []).push({});
+      </script>
+    -->
+    
+  </div>
+  <div id="blogFeed">
+    <div>
+      <hr>
+      <h4>Incremental fun!</h4>
+      <p>HOW TO PLAY: WebTycoon is a Blog-simulator where the goal is to earn money trough adds. Things you do affect your site in different ways. More views, even manuell ones increases the load on your servers. If the load surpases 100% the site becomes laggy and looses popularity. By writing exiting blog-posts the popularity goes up and also by getting more views, as the word spreads of your cool site! Marketing is a key element to reach out to people but be carefull, noone likes a spammer! Good luck!</p>
+    </div>
+  </div>
+</div>
+<div class="col-md-2 upgrades">
+  <button id="autoRefBtn" class="btn btn-sm btn-primary btn-block" onclick="update.buyAutoRefresher()" title="Adds a autorefresher which gives 1view/s. Does not increase the unique views.">Auto Refresh (<span id="autorefresherCount">0</span>)
+    <div>
+      <p id="autorefresherPrice" style="font-size: 12px; margin: 0 0 0 0;">10</p>
+      <p id="autoRefreshBtn" style="font-size: 12px; margin: 0 0 0 0;"></p>
+    </div>
+    <!--
+    <div class="progress">
+      <div id="refreshProgress" class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="0"
+      aria-valuemin="0" aria-valuemax="100" style="width:0%">
+    </div>
+  </div>
+-->
+</button>
+<button id="newEntryBtn" class="btn btn-xs btn-primary btn-block" data-toggle="modal" data-target="#blogModal">Write blog-entry
+  <div>
+    <p style="font-size: 12px">-75% energy</p>
+  </div>
+</button>
+<button class="btn btn-xs btn-primary btn-block" data-toggle="modal" data-target="#sponsorModal">Hunt sponsors
+  <div>
+    <p style="font-size: 12px">-15% energy</p>
+  </div>
+</button>
+<button class="btn btn-xs btn-primary btn-block" title="You can't earn money without some kind of incomesource, adds is a low-level incomesource." onclick="update.addAdds()">AdCent
+  <div>
+    <p style="font-size: 12px">-20 popularity</p>
+  </div>
+</button>
+<button class="btn btn-xs btn-primary btn-block" onclick="update.upgradeServer()">Server upgrade
+  <div>
+    <p id="serverPrice" style="font-size: 12px">150</p>
+  </div>
+</button>
+<button class="btn btn-xs btn-primary btn-block">Improve site
+  <div>
+    <p style="font-size: 12px">1.000.000</p>
+  </div>
+</button>
+<button class="btn btn-xs btn-primary btn-block">Market site
+  <div>
+    <p style="font-size: 12px">2.500.000</p>
+  </div>
+</button>
+</div>
+</div>
+</div>
+
+
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+      <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+    <script>window.jQuery || document.write('<script src="js/vendor/jquery.min.js"><\/script>')</script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/notify.min.js"></script>
+    <script src="js/sweetalert.min.js"></script>
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <script src="js/ie10-viewport-bug-workaround.js"></script>
+    <script src="js/main.js"></script>
+  </body>
+  </html>

@@ -94,7 +94,7 @@ var init = (function() {
         'element': 'newEntryBtn',
     }, {
         'text': 'Good luck too you!',
-        'element': 'null',
+        'element': null,
     }];
     var currentText = 0;
 
@@ -217,6 +217,9 @@ var init = (function() {
                 $('#blogFeed').html(localStorage.getItem("blogFeed"));
             }
             init.elements();
+
+        } else {
+            init.tutorial();
         }
     }
 
@@ -239,7 +242,7 @@ var init = (function() {
         var img = $('<img id="tutorialDude" />')
         img.attr('src', "http://www.wpclipart.com/cartoon/mythology/wizard/wizard_cartoon_T.png")
         img.css({
-            'position': 'absolute',
+            'position': 'fixed',
             'height': 150,
             'width': 125,
             'left': width,
@@ -249,7 +252,7 @@ var init = (function() {
         var text = $('<p id="tutorialText"/>')
         text.html(tutorialTexts[currentText].text + " <a class='mouse-pointer' onclick='init.progressTutorial()'>continue...</a>")
         text.css({
-            'position': 'absolute',
+            'position': 'fixed',
             'left': width + 125,
             'top': height,
             'width': '225px',
@@ -267,19 +270,20 @@ var init = (function() {
         $('#tutorialImage').remove();
         currentText++;
         if (tutorialTexts[currentText]) {
-            if (tutorialTexts[currentText]) {
+            if (tutorialTexts[currentText].element) {
                 var img = $('<img id="tutorialImage" />')
                 img.attr('src', "http://www.arrowcleanersinc.com/website.png")
                 img.css({
                     'position': 'absolute',
                     'height': 75,
                     'width': 75,
-                    'left': $('#' + tutorialTexts[currentText].element).offset().left - 75,
+                    'left': $('#' + tutorialTexts[currentText].element).offset().left - 75 + $('#' + tutorialTexts[currentText].element).width() / 2,
                     'top': $('#' + tutorialTexts[currentText].element).offset().top - 75,
                 })
                 $('body').append(img)
             }
             $('#tutorialText').html(tutorialTexts[currentText].text + " <a class='mouse-pointer' onclick='init.progressTutorial()'>continue...</a>")
+            document.getElementById('tutorialImage').scrollIntoView();
         } else {
             $('#tutorialDude').remove();
             $('#tutorialText').remove();
@@ -642,7 +646,6 @@ var update = (function() {
 
 
 $(document).ready(function() {
-    init.tutorial();
     init.elements();
     init.blogModal();
     init.load();

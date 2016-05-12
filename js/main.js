@@ -116,77 +116,74 @@ var init = (function() {
 
     var blogModal = function() {
         $('#blogModal').on('shown.bs.modal', function(e) {
-            if (player.energy > 75) {
-                var arrayOfEvents = [];
-                var theElement = document.getElementById("blogModal");
+            var arrayOfEvents = [];
+            var theElement = document.getElementById("blogModal");
 
-                var fn = function(e) {
-                    var valueNow = $("#blogProgress").attr('aria-valuenow');
-                    if (valueNow >= 100) {
-                        update.modifyEnergy(-75);
-                        theElement.removeEventListener("touchmove", fn, false);
-                        $('#blogProgress').css('width', 0 + '%').attr('aria-valuenow', 0);
-                        update.modifyPopularity(0.5)
-                        $.notify("Popularity increased by 0.5", "success");
-                        $('#blogModal').modal('hide');
-                        var articleCount = $('#blogFeed').html().split('</div>');
-                        var article = Math.floor(Math.random() * articles.allArticles().length);
-                        $('#blogFeed').html("<div><hr><h4>" + articles.allArticles()[article].title + "</h4><p>" + articles.allArticles()[article].content + "</p></div>");
-                        var articlesAdded = 1;
-                        for (var i = 0; i < articleCount.length; i++) {
-                            if (articleCount[i] != null && articlesAdded < 3) {
-                                $('#blogFeed').append(articleCount[i] + "</div>")
-                                articlesAdded++;
-                            }
+            var fn = function(e) {
+                var valueNow = $("#blogProgress").attr('aria-valuenow');
+                if (valueNow >= 100) {
+                    update.modifyEnergy(-75);
+                    theElement.removeEventListener("touchmove", fn, false);
+                    $('#blogProgress').css('width', 0 + '%').attr('aria-valuenow', 0);
+                    update.modifyPopularity(0.5)
+                    $.notify("Popularity increased by 0.5", "success");
+                    $('#blogModal').modal('hide');
+                    var articleCount = $('#blogFeed').html().split('</div>');
+                    var article = Math.floor(Math.random() * articles.allArticles().length);
+                    $('#blogFeed').html("<div><hr><h4>" + articles.allArticles()[article].title + "</h4><p>" + articles.allArticles()[article].content + "</p></div>");
+                    var articlesAdded = 1;
+                    for (var i = 0; i < articleCount.length; i++) {
+                        if (articleCount[i] != null && articlesAdded < 3) {
+                            $('#blogFeed').append(articleCount[i] + "</div>")
+                            articlesAdded++;
                         }
                     }
+                } else {
                     var valueNew = Number(valueNow) + 0.25;
                     $('#blogProgress').css('width', valueNew < 0 ? 0 : valueNew + '%').attr('aria-valuenow', valueNew < 0 ? 0 : valueNew);
-                    e.preventDefault();
                 }
+                e.preventDefault();
+            }
 
-                theElement.addEventListener("touchmove", fn, false);
+            theElement.addEventListener("touchmove", fn, false);
 
-                document.onkeydown = function(e) {
-                    var valueNow = $("#blogProgress").attr('aria-valuenow');
-                    if (valueNow >= 100) {
-                        update.modifyEnergy(-75);
-                        document.onkeydown = null;
-                        $('#blogProgress').css('width', 0 + '%').attr('aria-valuenow', 0);
-                        update.modifyPopularity(0.5)
-                        $.notify("Popularity increased by 0.5", "success");
-                        $('#blogModal').modal('hide');
-                        var articleCount = $('#blogFeed').html().split('</div>');
-                        var article = Math.floor(Math.random() * articles.allArticles().length);
-                        $('#blogFeed').html("<div><hr><h4>" + articles.allArticles()[article].title + "</h4><p>" + articles.allArticles()[article].content + "</p></div>");
-                        var articlesAdded = 1;
-                        for (var i = 0; i < articleCount.length; i++) {
-                            if (articleCount[i] != null && articlesAdded < 3) {
-                                $('#blogFeed').append(articleCount[i] + "</div>")
-                                articlesAdded++;
-                            }
+            document.onkeydown = function(e) {
+                var valueNow = $("#blogProgress").attr('aria-valuenow');
+                if (valueNow >= 100) {
+                    update.modifyEnergy(-75);
+                    document.onkeydown = null;
+                    $('#blogProgress').css('width', 0 + '%').attr('aria-valuenow', 0);
+                    update.modifyPopularity(0.5)
+                    $.notify("Popularity increased by 0.5", "success");
+                    $('#blogModal').modal('hide');
+                    var articleCount = $('#blogFeed').html().split('</div>');
+                    var article = Math.floor(Math.random() * articles.allArticles().length);
+                    $('#blogFeed').html("<div><hr><h4>" + articles.allArticles()[article].title + "</h4><p>" + articles.allArticles()[article].content + "</p></div>");
+                    var articlesAdded = 1;
+                    for (var i = 0; i < articleCount.length; i++) {
+                        if (articleCount[i] != null && articlesAdded < 3) {
+                            $('#blogFeed').append(articleCount[i] + "</div>")
+                            articlesAdded++;
                         }
-                    } else {
-                        var punishment = 0;
-                        if (arrayOfEvents != null) {
+                    }
+                } else {
+                    var punishment = 0;
+                    if (arrayOfEvents != null) {
 
-                            for (var i = 0; i < 15; i++) {
-                                if (arrayOfEvents[i] != null) {
-                                    if (arrayOfEvents[i].keyCode == e.keyCode) {
-                                        punishment += 0.2
-                                    }
+                        for (var i = 0; i < 15; i++) {
+                            if (arrayOfEvents[i] != null) {
+                                if (arrayOfEvents[i].keyCode == e.keyCode) {
+                                    punishment += 0.2
                                 }
                             }
                         }
-                        var valueNew = Number(valueNow) + (1 - punishment);
-                        $('#blogProgress').css('width', valueNew < 0 ? 0 : valueNew + '%').attr('aria-valuenow', valueNew < 0 ? 0 : valueNew);
-                        arrayOfEvents.splice(0, 0, e);
                     }
-                };
-            } else {
-                $('#blogModal').modal('hide');
-                $.notify("Not enough energy!");
-            }
+                    var valueNew = Number(valueNow) + (1 - punishment);
+                    $('#blogProgress').css('width', valueNew < 0 ? 0 : valueNew + '%').attr('aria-valuenow', valueNew < 0 ? 0 : valueNew);
+                    arrayOfEvents.splice(0, 0, e);
+                }
+            };
+
         });
         $('#blogModal').on('hidden.bs.modal', function(e) {
             document.onkeydown = null;
@@ -281,9 +278,10 @@ var init = (function() {
                     'top': $('#' + tutorialTexts[currentText].element).offset().top - 75,
                 })
                 $('body').append(img)
+                document.getElementById('tutorialImage').scrollIntoView();
             }
             $('#tutorialText').html(tutorialTexts[currentText].text + " <a class='mouse-pointer' onclick='init.progressTutorial()'>continue...</a>")
-            document.getElementById('tutorialImage').scrollIntoView();
+
         } else {
             $('#tutorialDude').remove();
             $('#tutorialText').remove();
@@ -571,29 +569,24 @@ var update = (function() {
 
     var chooseCard = function(card) {
         return function() {
-            if (player.energy >= 15) {
-                $("#sponsorCard" + card).addClass('choosen');
-                var goodCard = Math.floor(Math.random() * 3) + 1;
-                for (var i = 1; i <= 3; i++) {
-                    $("#sponsorCard" + i).prop('onclick', null).off('click');
-                    if (goodCard == i) {
-                        $("#sponsorCard" + i).attr('src', 'https://upload.wikimedia.org/wikipedia/commons/thumb/f/f2/Playing_card_spade_2.svg/819px-Playing_card_spade_2.svg.png')
-                    } else {
-                        $("#sponsorCard" + i).attr('src', 'http://theawesomer.com/photos/2013/11/breaking_bad_playing_cards_1.jpg')
-                    }
-                }
-                if (goodCard == card) {
-                    var reward = (player.popularity / 100) * 2
-                    $.notify("+ " + update.nFormatter(reward, 2, 2) + " dollar!", "success")
-                    update.addMoney(reward)
+            $("#sponsorCard" + card).addClass('choosen');
+            var goodCard = Math.floor(Math.random() * 3) + 1;
+            for (var i = 1; i <= 3; i++) {
+                $("#sponsorCard" + i).prop('onclick', null).off('click');
+                if (goodCard == i) {
+                    $("#sponsorCard" + i).attr('src', 'https://upload.wikimedia.org/wikipedia/commons/thumb/f/f2/Playing_card_spade_2.svg/819px-Playing_card_spade_2.svg.png')
                 } else {
-                    $.notify("Wrong card!")
+                    $("#sponsorCard" + i).attr('src', 'http://theawesomer.com/photos/2013/11/breaking_bad_playing_cards_1.jpg')
                 }
-                update.modifyEnergy(-15);
-            } else {
-                $('#sponsorModal').modal('hide');
-                $.notify("Too tierd to hunt sponsors!")
             }
+            if (goodCard == card) {
+                var reward = (player.popularity / 100) * 2
+                $.notify("+ " + update.nFormatter(reward, 2, 2) + " dollar!", "success")
+                update.addMoney(reward)
+            } else {
+                $.notify("Wrong card!")
+            }
+            update.modifyEnergy(-15);
         }
 
     }
@@ -612,6 +605,22 @@ var update = (function() {
         $("#websiteName").html(p);
         $("#websiteURL").attr('value', 'www.' + p + '.com');
         player.websiteName = p;
+    }
+
+    var showSponsorModal = function() {
+        if (player.energy >= 15) {
+            $('#sponsorModal').modal('show');
+        } else {
+            $.notify("Not enough energy!");
+        }
+    }
+
+    var showBlogModal = function() {
+        if (player.energy >= 75) {
+            $('#blogModal').modal('show');
+        } else {
+            $.notify("Not enough energy!");
+        }
     }
 
     return {
@@ -640,6 +649,8 @@ var update = (function() {
         resetCards: resetCards,
         resetGame: resetGame,
         changeWebsiteName: changeWebsiteName,
+        showSponsorModal: showSponsorModal,
+        showBlogModal: showBlogModal,
     }
 
 })();

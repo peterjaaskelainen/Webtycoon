@@ -1,3 +1,34 @@
+var achivements = (function() {
+
+    var allAchievements =
+        [{
+            title: "Addcepted!",
+            description: "Finally you have enough views to start showing adds!",
+            unlocked: false,
+            requirement: function() {
+                return player.pageViews >= 500 ? true : false;
+            }
+        }, {
+            title: "Viewalicious!",
+            description: "1k views, a breakpoint in your carrier!",
+            unlocked: false,
+            requirement: function() {
+                return player.pageViews >= 1000 ? true : false;
+            }
+        }, {
+            title: "Viewalicious II!",
+            description: "10k views and still rising steady every day",
+            unlocked: false,
+            requirement: function() {
+                return player.pageViews >= 10000 ? true : false;
+            }
+        }]
+
+    return {
+        allAchievements: allAchievements,
+    }
+})();
+
 var articles = (function() {
 
     var allArticles = function() {
@@ -26,6 +57,7 @@ var player = (function() {
     const updateMS = 30;
     var worker;
     var websiteName = "webtycoon";
+    var tutorialDone = false;
 
     var money = 0;
     var pageViews = 0;
@@ -61,6 +93,7 @@ var player = (function() {
         serverCapacity: serverCapacity,
         energyRegen: energyRegen,
         saveEnabled: saveEnabled,
+        tutorialDone: tutorialDone,
     }
 
 
@@ -69,31 +102,34 @@ var player = (function() {
 var init = (function() {
 
     var tutorialTexts = [{
-        'text': 'Welcome mighty webpage owner! This is a small tutorial to get you started!',
+        'text': 'Greetings and welcome to your new webpage! I know you are eager to start developing your web-empire but please let me explain a few basics of the game!',
         'element': null,
     }, {
-        'text': 'This is your money, you gain money trough adds on your webpage.',
+        'text': 'This is your money, you gain money trough addviews on your page or by hunting sponsors.',
         'element': 'money',
     }, {
-        'text': 'The base currency is views and all other currencys are based on it. Popularity decides how many views you get.',
+        'text': 'The base currency is views and all other currencys are based on it and popularity decides how many views you get.',
         'element': 'pageViews',
     }, {
-        'text': 'Your servers can only handle a certain amount of traffic. Do not overload them as that will cause lag and displeasment among the users...',
+        'text': 'Your servers can only handle a certain amount of traffic. Do not overload them as that will cause lag and displeasment among the users which in turn leads to decreased popularity.',
         'element': 'serverload',
     }, {
-        'text': 'Popularity increases a small amount with views as people recommend your site to friends. Certain actions can also increase this. Views per minute are based on popularity.',
+        'text': 'Popularity increases a small amount with views as people recommend your site to friends. Updating and improving your website also increases popularity. Views per minute are based on popularity.',
         'element': 'popularity',
     }, {
-        'text': 'Energy is needed to perform manual tasks which in turn gives good rewards. Default regeneration is 0.40%/s',
+        'text': 'Energy is needed to perform manual tasks, e.g hunting for sponsors, which in turn gives good rewards. Default regenerationrate is 0.4% every second',
         'element': 'energy',
     }, {
-        'text': 'Autorefreshers refreshes the page for you! one autorefresher = 0.5 clicks/s.',
+        'text': 'Autorefreshers refreshes the page for you! You gain 0.5 pageviews every second for every autorefresher you own.',
         'element': 'autoRefBtn',
     }, {
-        'text': 'Write a new post on your page to increase your popularity!',
+        'text': 'Write a new article on your page to increase your popularity!',
         'element': 'newEntryBtn',
     }, {
-        'text': 'Good luck too you!',
+        'text': 'AdCent is a addprogram run by Guugli, this is your main incomesource, when you hit 500 views you will get a free adcent promotion and start earning money. After this you must sacrifice popularity to gain more profit.',
+        'element': 'popularityBtn',
+    }, {
+        'text': 'Good luck to you!',
         'element': null,
     }];
     var currentText = 0;
@@ -213,6 +249,7 @@ var init = (function() {
             if (localStorage.getItem("blogFeed")) {
                 $('#blogFeed').html(localStorage.getItem("blogFeed"));
             }
+            player.tutorialDone = true;
             init.elements();
 
         } else {
@@ -252,7 +289,7 @@ var init = (function() {
             'position': 'fixed',
             'left': width + 125,
             'top': height,
-            'width': '225px',
+            'width': '300px',
             'color': 'white',
             'background-color': 'rgba(0,0,0,0.9)',
             'padding': '3px 3px 3px 3px',
@@ -285,6 +322,7 @@ var init = (function() {
         } else {
             $('#tutorialDude').remove();
             $('#tutorialText').remove();
+            player.tutorialDone = true;
         }
     }
 
@@ -302,10 +340,12 @@ var webWorker = (function() {
 
     var start = function() {
         setInterval(function() {
-            update.calculateRegularViews();
-            update.calculateAutoRefreshViews();
-            if (player.pageViews >= 500 && player.adds == 0) {
-                player.adds++;
+            if (player.tutorialDone) {
+                update.calculateRegularViews();
+                update.calculateAutoRefreshViews();
+                if (player.pageViews >= 500 && player.adds == 0) {
+                    player.adds++;
+                }
             }
         }, player.updateMS);
     }
@@ -354,6 +394,12 @@ var update = (function() {
 
     var calculateSeverLoad = function(amount) {
         if ((new Date).getTime() - serverLoadCounter >= 1000) {
+            for (var j = 0; j < achivements.allAchievements.length; j++) {
+                if (achivements.allAchievements[j].requirement() && !achivements.allAchievements[j].unlocked) {
+                    achivements.allAchievements[j].unlocked = true;
+                    $.notify("Achivement: '" + achivements.allAchievements[j].title + "' unlocked!", 'success')
+                }
+            }
             calculateEnergyRegen();
             var percent = (1 - (player.serverCapacity - (serverLoadAverage / 10))) * 100;
             percent < 0 ? percent = 0 : false;
@@ -571,6 +617,7 @@ var update = (function() {
         return function() {
             $("#sponsorCard" + card).addClass('choosen');
             var goodCard = Math.floor(Math.random() * 3) + 1;
+            var bonusCollected = false;
             for (var i = 1; i <= 3; i++) {
                 $("#sponsorCard" + i).prop('onclick', null).off('click');
                 if (goodCard == i) {
@@ -579,10 +626,11 @@ var update = (function() {
                     $("#sponsorCard" + i).attr('src', 'http://theawesomer.com/photos/2013/11/breaking_bad_playing_cards_1.jpg')
                 }
             }
-            if (goodCard == card) {
+            if (goodCard == card && !bonusCollected) {
                 var reward = (player.popularity / 100) * 2
                 $.notify("+ " + update.nFormatter(reward, 2, 2) + " dollar!", "success")
                 update.addMoney(reward)
+                bonusCollected = true;
             } else {
                 $.notify("Wrong card!")
             }
@@ -623,6 +671,21 @@ var update = (function() {
         }
     }
 
+    var showAchivements = function() {
+        var achis = achivements.allAchievements;
+        var count = 0;
+        $('#modalBodyAchievements').html("");
+        for (var i = 0; i < achis.length; i++) {
+            if (achis[i].unlocked) {
+                count++;
+                $('#modalBodyAchievements').append("<h4>>>" + achis[i].title + "<<</h4> " + achis[i].description + "<br>");
+            }
+        }
+        $('#achievementModal').modal('show')
+        $.notify("You have collected " + count + " achievements.", 'success')
+
+    }
+
     return {
         calculateRegularViews: calculateRegularViews,
         calculateAutoRefreshViews: calculateAutoRefreshViews,
@@ -651,6 +714,7 @@ var update = (function() {
         changeWebsiteName: changeWebsiteName,
         showSponsorModal: showSponsorModal,
         showBlogModal: showBlogModal,
+        showAchivements: showAchivements,
     }
 
 })();

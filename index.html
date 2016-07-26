@@ -96,7 +96,7 @@
 <div class="container">
  <div class="row">
   <div class="heading col-md-12">
-    <img src="images/icon.png" style="width:300; height:150px;" alt="logo" class="img-responsive center-block"/>
+    <img src="images/iconOld.png" style="width:300; height:150px;" alt="logo" class="img-responsive center-block"/>
   </div>
 </div>
 <div class="stat-bar text-center row">
@@ -113,7 +113,7 @@
 <div class="row">
   <div class="col-md-10 text-center" id="fakeWebpage">
     <div style="padding-bottom: 15px;">
-      <span class="glyphicon glyphicon-chevron-left"></span><span class="glyphicon glyphicon-chevron-right"></span><a class="mouse-pointer" onclick="update.calculateManualView()"><span class="glyphicon glyphicon-repeat"></span></a> | <input id="websiteURL" type="text" disabled="true" style="width: 80%" value="www.yoursite.com"/>
+      <span class="glyphicon glyphicon-chevron-left"></span><span class="glyphicon glyphicon-chevron-right"></span><a id="manual-btn" class="mouse-pointer" onclick="update.calculateManualView()"><span class="glyphicon glyphicon-repeat"></span></a> | <input id="websiteURL" type="text" disabled="true" style="width: 80%" value="www.yoursite.com"/>
     </div>
     <h3 id="websiteName" style="display: inline;">Yoursite Blog</h3><a> <span class="mouse-pointer glyphicon glyphicon glyphicon-edit" onclick="update.changeWebsiteName()"></span></a>
 
@@ -166,7 +166,7 @@
 </button>
 <button id="popularityBtn" class="btn btn-xs btn-primary btn-block" title="You can't earn money without some kind of incomesource, adds is a low-level incomesource." onclick="update.addAdds()">AdCent
   <div>
-    <p style="font-size: 12px">-20 popularity</p>
+    <p style="font-size: 12px">-20 popularityBtnpularity</p>
   </div>
 </button>
 <button class="btn btn-xs btn-primary btn-block" onclick="update.upgradeServer()">Server upgrade
@@ -179,9 +179,9 @@
     <p style="font-size: 12px">1.000.000</p>
   </div>
 </button>
-<button class="btn btn-xs btn-primary btn-block">Market site
+<button class="btn btn-xs btn-primary btn-block" onclick="update.market()">Market site
   <div>
-    <p style="font-size: 12px">2.500.000</p>
+    <p id="marketingPrice" style="font-size: 12px">2.500.000</p>
   </div>
 </button>
 </div>

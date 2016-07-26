@@ -1,6 +1,6 @@
 var achivements = (function() {
 
-    var allAchievements =
+    var viewAchievements =
         [{
             title: "Addcepted!",
             description: "Finally you have enough views to start showing adds!",
@@ -22,10 +22,141 @@ var achivements = (function() {
             requirement: function() {
                 return player.pageViews >= 10000 ? true : false;
             }
+        }, {
+            title: "Viewalicious III!",
+            description: "100k views and still rising steady every day",
+            unlocked: false,
+            requirement: function() {
+                return player.pageViews >= 100000 ? true : false;
+            }
+        }, {
+            title: "Viewalicious IV!",
+            description: "500k views and still rising steady every day",
+            unlocked: false,
+            requirement: function() {
+                return player.pageViews >= 500000 ? true : false;
+            }
+        }]
+
+    var moneyAchievements =
+        [{
+            title: "Cash!",
+            description: "Finally you have enough views to start showing adds!",
+            unlocked: false,
+            requirement: function() {
+                return player.money >= 10 ? true : false;
+            }
+        }, {
+            title: "Cash II!",
+            description: "1k views, a breakpoint in your carrier!",
+            unlocked: false,
+            requirement: function() {
+                return player.money >= 15 ? true : false;
+            }
+        }, {
+            title: "Cash III!",
+            description: "10k views and still rising steady every day",
+            unlocked: false,
+            requirement: function() {
+                return player.money >= 20 ? true : false;
+            }
+        }, {
+            title: "Cash IV!",
+            description: "10k views and still rising steady every day",
+            unlocked: false,
+            requirement: function() {
+                return player.money >= 40 ? true : false;
+            }
+        }, {
+            title: "Cash V!",
+            description: "10k views and still rising steady every day",
+            unlocked: false,
+            requirement: function() {
+                return player.money >= 80 ? true : false;
+            }
+        }]
+
+    var popularityAchievements =
+        [{
+            title: "Cash!",
+            description: "Finally you have enough views to start showing adds!",
+            unlocked: false,
+            requirement: function() {
+                return player.popularity >= 1.5 ? true : false;
+            }
+        }, {
+            title: "Cash II!",
+            description: "1k views, a breakpoint in your carrier!",
+            unlocked: false,
+            requirement: function() {
+                return player.popularity >= 2 ? true : false;
+            }
+        }, {
+            title: "Cash III!",
+            description: "10k views and still rising steady every day",
+            unlocked: false,
+            requirement: function() {
+                return player.popularity >= 5 ? true : false;
+            }
+        }, {
+            title: "Cash IV!",
+            description: "10k views and still rising steady every day",
+            unlocked: false,
+            requirement: function() {
+                return player.popularity >= 10 ? true : false;
+            }
+        }, {
+            title: "Cash V!",
+            description: "10k views and still rising steady every day",
+            unlocked: false,
+            requirement: function() {
+                return player.popularity >= 100 ? true : false;
+            }
+        }]
+
+    var uniqueVisitorsAchievements =
+        [{
+            title: "Cash!",
+            description: "Finally you have enough views to start showing adds!",
+            unlocked: false,
+            requirement: function() {
+                return player.uniqueVisitors >= 10 ? true : false;
+            }
+        }, {
+            title: "Cash II!",
+            description: "1k views, a breakpoint in your carrier!",
+            unlocked: false,
+            requirement: function() {
+                return player.uniqueVisitors >= 15 ? true : false;
+            }
+        }, {
+            title: "Cash III!",
+            description: "10k views and still rising steady every day",
+            unlocked: false,
+            requirement: function() {
+                return player.uniqueVisitors >= 20 ? true : false;
+            }
+        }, {
+            title: "Cash IV!",
+            description: "10k views and still rising steady every day",
+            unlocked: false,
+            requirement: function() {
+                return player.uniqueVisitors >= 40 ? true : false;
+            }
+        }, {
+            title: "Cash V!",
+            description: "10k views and still rising steady every day",
+            unlocked: false,
+            requirement: function() {
+                return player.uniqueVisitors >= 80 ? true : false;
+            }
         }]
 
     return {
-        allAchievements: allAchievements,
+        viewAchievements: viewAchievements,
+        moneyAchievements: moneyAchievements,
+        popularityAchievements: popularityAchievements,
+        uniqueVisitorsAchievements: uniqueVisitorsAchievements,
     }
 })();
 
@@ -44,6 +175,21 @@ var articles = (function() {
             title: "What the heck, is popularity?",
             content: "Popularity is a abstract thing, who is popular? How do you measure it? Views per second are based on the popularity of a website" +
                 " and the number are simply a multiplier for this calculation. More popularity = more views. It is also a good measurement to compare your website with your friends... DUDE? You only have 200 popularity? I'm at 5k noob 8-)",
+        }, {
+            title: "Diamondcollector idle game!",
+            content: "Have you played http://diamondcollecotr.net? It's rumored that webtycoon come from the same creator!" +
+                "It's another idle game that you should (and probably will) try out! :) ",
+        }, {
+            title: "Guugli to relese new ad software?",
+            content: "Information regarding Guugli and their add-software have leaked! It is almost sure that Guugli will relese a ad-software that is far better than adCent." +
+                "This means that website owners will earn more money faster from their ads and webpage visitors will get more accurate ads presented. It's a win win! Relesedate is still unknown...",
+        }, {
+            title: "Sponsorhunting tutorial",
+            content: "Sponsorhunting is a populair trend nowadays. Blog owners talk to sponsors about promoting products and get products or money as reward." +
+                " The sponsors are hard to get and only 33% of sponsorhunting tries goes well. Be patient and have some faith!",
+        }, {
+            title: "Content as content",
+            content: "Today is a day when I lack motivation for this blog. Therefor I refuse to write something fun.",
         }];
     }
 
@@ -129,6 +275,9 @@ var init = (function() {
         'text': 'AdCent is a addprogram run by Guugli, this is your main incomesource, when you hit 500 views you will get a free adcent promotion and start earning money. After this you must sacrifice popularity to gain more profit.',
         'element': 'popularityBtn',
     }, {
+        'text': 'You can cheat and generate views by manually refreshing your page, remember that this also increases serverload and will make other users lag if overloaded.',
+        'element': 'manual-btn',
+    }, {
         'text': 'Good luck to you!',
         'element': null,
     }];
@@ -144,6 +293,7 @@ var init = (function() {
         $("#energy").html(player.energy);
         $("#autorefresherPrice").html(update.nFormatter(update.calculateAutoRefresherPrice(), 2, 1));
         $('#serverPrice').html(update.nFormatter(150 * Math.pow(1.15, player.serverCapacity)));
+        $('#marketingPrice').html(update.nFormatter(update.calculateMarketingPrice()));
         $("#autorefresherCount").html(player.autoRefresh);
         $("#autoRefreshBtn").html('Clicks:' + update.nFormatter((0.015 * player.autoRefresh) * (1000 / 30), 2, 1) + '/s');
         $("#websiteName").html(player.websiteName);
@@ -249,6 +399,16 @@ var init = (function() {
             if (localStorage.getItem("blogFeed")) {
                 $('#blogFeed').html(localStorage.getItem("blogFeed"));
             }
+            for (var j = 0; j < achivements.viewAchievements.length; j++) {
+                if (achivements.viewAchievements[j].requirement() && !achivements.viewAchievements[j].unlocked) {
+                    achivements.viewAchievements[j].unlocked = true;
+                }
+            }
+            for (var j = 0; j < achivements.moneyAchievements.length; j++) {
+                if (achivements.moneyAchievements[j].requirement() && !achivements.moneyAchievements[j].unlocked) {
+                    achivements.moneyAchievements[j].unlocked = true;
+                }
+            }
             player.tutorialDone = true;
             init.elements();
 
@@ -274,7 +434,7 @@ var init = (function() {
         var height = $(window).height() - 150;
         var width = 0;
         var img = $('<img id="tutorialDude" />')
-        img.attr('src', "http://www.wpclipart.com/cartoon/mythology/wizard/wizard_cartoon_T.png")
+        img.attr('src', "images/tut_dude.png")
         img.css({
             'position': 'fixed',
             'height': 150,
@@ -306,7 +466,7 @@ var init = (function() {
         if (tutorialTexts[currentText]) {
             if (tutorialTexts[currentText].element) {
                 var img = $('<img id="tutorialImage" />')
-                img.attr('src', "http://www.arrowcleanersinc.com/website.png")
+                img.attr('src', "images/arrow.png")
                 img.css({
                     'position': 'absolute',
                     'height': 75,
@@ -343,6 +503,9 @@ var webWorker = (function() {
             if (player.tutorialDone) {
                 update.calculateRegularViews();
                 update.calculateAutoRefreshViews();
+                if ($('#marketingPrice').html != update.nFormatter(update.calculateMarketingPrice())) {
+                    $('#marketingPrice').html(update.nFormatter(update.calculateMarketingPrice()));
+                }
                 if (player.pageViews >= 500 && player.adds == 0) {
                     player.adds++;
                 }
@@ -394,12 +557,6 @@ var update = (function() {
 
     var calculateSeverLoad = function(amount) {
         if ((new Date).getTime() - serverLoadCounter >= 1000) {
-            for (var j = 0; j < achivements.allAchievements.length; j++) {
-                if (achivements.allAchievements[j].requirement() && !achivements.allAchievements[j].unlocked) {
-                    achivements.allAchievements[j].unlocked = true;
-                    $.notify("Achivement: '" + achivements.allAchievements[j].title + "' unlocked!", 'success')
-                }
-            }
             calculateEnergyRegen();
             var percent = (1 - (player.serverCapacity - (serverLoadAverage / 10))) * 100;
             percent < 0 ? percent = 0 : false;
@@ -444,6 +601,12 @@ var update = (function() {
         player.pageViews += amount;
         calculateSeverLoad(amount)
         saveGame();
+        for (var j = 0; j < achivements.viewAchievements.length; j++) {
+            if (achivements.viewAchievements[j].requirement() && !achivements.viewAchievements[j].unlocked) {
+                achivements.viewAchievements[j].unlocked = true;
+                $.notify("Achivement: '" + achivements.viewAchievements[j].title + "' unlocked!", 'success')
+            }
+        }
         var cacheNumber = update.nFormatter(player.pageViews, 2, 0);
         if ($("#pageViews").html() != cacheNumber) {
             Math.random() > 0.9 ? modifyPopularity(0.01) : false
@@ -470,6 +633,12 @@ var update = (function() {
     var addMoney = function(amount) {
         amount == null ? amount = 1 : amount = amount
         player.money += amount;
+        for (var j = 0; j < achivements.moneyAchievements.length; j++) {
+            if (achivements.moneyAchievements[j].requirement() && !achivements.moneyAchievements[j].unlocked) {
+                achivements.moneyAchievements[j].unlocked = true;
+                $.notify("Achivement: '" + achivements.moneyAchievements[j].title + "' unlocked!", 'success')
+            }
+        }
         var cacheNumber = update.nFormatter(player.money, 2, 2);
         if ($("#money").html() != cacheNumber) {
             $("#money").html(cacheNumber);
@@ -484,16 +653,30 @@ var update = (function() {
         amount == null ? amount = 1 : amount = amount
         player.uniqueVisitors += amount;
         var cacheNumber = update.nFormatter(player.uniqueVisitors, 2, 0);
+        for (var j = 0; j < achivements.uniqueVisitorsAchievements.length; j++) {
+            if (achivements.uniqueVisitorsAchievements[j].requirement() && !achivements.uniqueVisitorsAchievements[j].unlocked) {
+                achivements.uniqueVisitorsAchievements[j].unlocked = true;
+                $.notify("Achivement: '" + achivements.uniqueVisitorsAchievements[j].title + "' unlocked!", 'success')
+            }
+        }
         if ($("#uniqueVisitors").html() != cacheNumber) {
             $("#uniqueVisitors").html(cacheNumber);
         }
     }
 
     var modifyPopularity = function(amount) {
-        if (player.popularity - amount <= 0) {
-            player.popularity = 0;
+        if (amount <= 0) {
+            if (player.popularity - amount <= 0) {
+                player.popularity = 0;
+            }
         } else {
             player.popularity += amount;
+        }
+        for (var j = 0; j < achivements.popularityAchievements.length; j++) {
+            if (achivements.popularityAchievements[j].requirement() && !achivements.popularityAchievements[j].unlocked) {
+                achivements.popularityAchievements[j].unlocked = true;
+                $.notify("Achivement: '" + achivements.popularityAchievements[j].title + "' unlocked!", 'success')
+            }
         }
         $("#popularity").html((player.popularity).toFixed(2));
         $("#popularity").addClass('animate');
@@ -578,7 +761,7 @@ var update = (function() {
         var cost = 150 * Math.pow(1.15, player.serverCapacity);
         if (player.money > cost) {
             player.serverCapacity += 0.9;
-            $('#serverPrice').html(update.nFormatter(cost));
+            $('#serverPrice').html(update.nFormatter(150 * Math.pow(1.15, player.serverCapacity + 1)));
         } else {
             $.notify("You don't have enough money!", {
                 position: "top-right",
@@ -621,13 +804,13 @@ var update = (function() {
             for (var i = 1; i <= 3; i++) {
                 $("#sponsorCard" + i).prop('onclick', null).off('click');
                 if (goodCard == i) {
-                    $("#sponsorCard" + i).attr('src', 'https://upload.wikimedia.org/wikipedia/commons/thumb/f/f2/Playing_card_spade_2.svg/819px-Playing_card_spade_2.svg.png')
+                    $("#sponsorCard" + i).attr('src', 'images/good_card.png')
                 } else {
-                    $("#sponsorCard" + i).attr('src', 'http://theawesomer.com/photos/2013/11/breaking_bad_playing_cards_1.jpg')
+                    $("#sponsorCard" + i).attr('src', 'images/bad_card.jpg')
                 }
             }
             if (goodCard == card && !bonusCollected) {
-                var reward = (player.popularity / 100) * 2
+                var reward = (player.popularity / 10) * 2
                 $.notify("+ " + update.nFormatter(reward, 2, 2) + " dollar!", "success")
                 update.addMoney(reward)
                 bonusCollected = true;
@@ -641,7 +824,7 @@ var update = (function() {
 
     var resetCards = function() {
         for (var i = 1; i <= 3; i++) {
-            $("#sponsorCard" + i).attr('src', 'https://upload.wikimedia.org/wikipedia/commons/thumb/e/e7/Red_card.svg/2000px-Red_card.svg.png');
+            $("#sponsorCard" + i).attr('src', 'images/back_of_card.png');
             $("#sponsorCard" + i).removeClass('choosen');
             $("#sponsorCard" + i).click(chooseCard(i));
         }
@@ -672,18 +855,54 @@ var update = (function() {
     }
 
     var showAchivements = function() {
-        var achis = achivements.allAchievements;
-        var count = 0;
         $('#modalBodyAchievements').html("");
+        initAchivements("Views", achivements.viewAchievements)
+        initAchivements("Money", achivements.moneyAchievements)
+        initAchivements("Popularity", achivements.popularityAchievements)
+        initAchivements("UniqueVisitors", achivements.uniqueVisitorsAchievements)
+    }
+
+    function initAchivements(typeOfAchivement, achis) {
+        $('#modalBodyAchievements').append("<h4 style='display: inline'>" + typeOfAchivement + " </h4>");
         for (var i = 0; i < achis.length; i++) {
             if (achis[i].unlocked) {
-                count++;
-                $('#modalBodyAchievements').append("<h4>>>" + achis[i].title + "<<</h4> " + achis[i].description + "<br>");
+                $('#modalBodyAchievements').append("<span class='glyphicon glyphicon-star mouse-pointer' data-toggle='tooltip' title='" + achis[i].description + "'></span>");
+            } else {
+                $('#modalBodyAchievements').append("<span class='glyphicon glyphicon-star-empty'></span>");
             }
         }
+        $('#modalBodyAchievements').append("<br>");
         $('#achievementModal').modal('show')
-        $.notify("You have collected " + count + " achievements.", 'success')
+        $('[data-toggle="tooltip"]').tooltip();
+    }
 
+    var ajaxCall = function() {
+        console.log("AJAX!");
+        $.ajax({
+            url: "/rest/highscore",
+            success: function(data) {
+                alert(data);
+            }
+        });
+
+
+    }
+
+    var market = function() {
+        if (player.money >= update.calculateMarketingPrice()) {
+            update.addMoney(0 - update.calculateMarketingPrice());
+            var rand = Math.floor((Math.random() * 100) + 1) / 10;
+            $.notify("Marketing site...", "success")
+            console.log(rand);
+            update.modifyPopularity(10);
+            $.notify("... popularity increased by " + update.nFormatter(rand, 2, 2), "success")
+        } else {
+            $.notify("Not enough money :(")
+        }
+    }
+
+    var calculateMarketingPrice = function() {
+        return (player.popularity * 1.75);
     }
 
     return {
@@ -715,6 +934,9 @@ var update = (function() {
         showSponsorModal: showSponsorModal,
         showBlogModal: showBlogModal,
         showAchivements: showAchivements,
+        ajaxCall: ajaxCall,
+        market: market,
+        calculateMarketingPrice: calculateMarketingPrice,
     }
 
 })();
@@ -725,6 +947,8 @@ $(document).ready(function() {
     init.blogModal();
     init.load();
     init.startWebWorker();
+
+
 
 
     /*setInterval(function() {

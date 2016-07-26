@@ -31,8 +31,6 @@ body{
     transition: none !important;
 }
 
-
-
 .animate{
 	display: -moz-inline-stack;
     display: inline-block;
@@ -89,6 +87,8 @@ body{
 .card.choosen{
   transform: translateY(-15px);
 }
+
+
 
 
 
